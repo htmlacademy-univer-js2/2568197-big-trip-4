@@ -1,5 +1,4 @@
 import {createElement} from '../render';
-
 const createTipEventListViewTemplate = () => '<ul class="trip-events__list"></ul>';
 export default class TipEventList {
   getTemplate() {
