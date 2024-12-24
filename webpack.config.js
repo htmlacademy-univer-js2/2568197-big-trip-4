@@ -20,10 +20,10 @@ module.exports = {
           from: 'public',
           globOptions: {
             ignore: ['**/index.html'],
-          },
-        },
-      ],
-    }),
+          }
+        }
+      ]
+    })
   ],
   module: {
     rules: [
@@ -34,9 +34,14 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env']
-          },
-        },
+          }
+        }
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
     ]
-  }
+  },
+
 };
