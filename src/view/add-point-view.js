@@ -98,7 +98,6 @@ const createAddPointTemplate = ({point, pointOffers}) => {
 
 export default class AddPointView extends AbstractView{
   #point = null;
-  #pointDestination = [];
   #pointOffers = [];
 
   #handleSaveClick = null;
