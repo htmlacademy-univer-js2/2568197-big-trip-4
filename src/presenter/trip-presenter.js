@@ -21,7 +21,7 @@ export default class TripPresenter {
   #pointPresenterArray = new Map();
 
   #currentSortType = SortType.DAY;
-  #sourcedBoardTasks = [];
+  #sourcedTripPoints = [];
 
   #sortComponent = null;
   #filterComponent = null;
@@ -33,25 +33,26 @@ export default class TripPresenter {
     this.#destinationsModel = destinationsModel;
     this.#offersModel = offersModel;
     this.#pointsModel = pointsModel;
-    this.#tripEventsElement = this.#tripContainer.querySelector('.trip-events');
-    this.#tripInfoElement = this.#tripContainer.querySelector('.trip-main');
-    this.#newEventElement = document.querySelector('.trip-main__event-add-btn');
   }
 
   init(){
-    this.#sourcedBoardTasks = [...this.#pointsModel.get()];
+    this.#tripEventsElement = this.#tripContainer.querySelector('.trip-events');
+    this.#tripInfoElement = this.#tripContainer.querySelector('.trip-main');
+    this.#newEventElement = document.querySelector('.trip-main__event-add-btn');
+
+    this.#sourcedTripPoints = [...this.#pointsModel.get()];
     this.#points = [...this.#pointsModel.get()];
     this.#points.sort(sortPointDay);
-    this.#sourcedBoardTasks.sort(sortPointDay);
+    this.#sourcedTripPoints.sort(sortPointDay);
+
+    this.#newEventElement.addEventListener('click', () => this.#addPointHandler(this.#newEventElement));
+    this.#renderFilter();
 
     if (this.#points.length === 0) {
       this.#renderNoPointComponent();
       return;
     }
 
-    this.#newEventElement.addEventListener('click', () => this.#addPointHandler(this.#newEventElement));
-
-    this.#renderFilter();
     this.#renderSort();
     this.#renderPoints();
     this.#renderTripInfo();
@@ -65,7 +66,7 @@ export default class TripPresenter {
 
   #handlePointChange = (updatedPoint) => {
     this.#points = updateItem(this.#points, updatedPoint);
-    this.#sourcedBoardTasks = updateItem(this.#sourcedBoardTasks, updatedPoint);
+    this.#sourcedTripPoints = updateItem(this.#sourcedTripPoints, updatedPoint);
     this.#pointPresenterArray.get(updatedPoint.id).init(updatedPoint);
   };
 
@@ -76,14 +77,10 @@ export default class TripPresenter {
   #renderFilter = () => {
     this.#filterComponent = new FilterPresenter({
       filterContainer: this.#tripContainer,
-      pointsModel: this.#points
+      pointsModel: this.#points,
     });
 
     this.#filterComponent.init();
-  };
-
-  #removeFilter = () => {
-    remove(this.#filterComponent);
   };
 
   #sortPoints = (sortType) => {
@@ -95,7 +92,7 @@ export default class TripPresenter {
         this.#points.sort(sortPointTime);
         break;
       default:
-        this.#points = [...this.#sourcedBoardTasks];
+        this.#points = [...this.#sourcedTripPoints];
     }
 
     this.#currentSortType = sortType;
@@ -115,8 +112,7 @@ export default class TripPresenter {
   #renderTripInfo() {
     render(new TripInfoView({
       points: this.#points,
-      pointDestination: this.#destinationsModel.get(),
-      pointOffers: this.#offersModel.get(),
+      pointDestination: this.#destinationsModel.get()
     }), this.#tripInfoElement, 'afterbegin');
   }
 

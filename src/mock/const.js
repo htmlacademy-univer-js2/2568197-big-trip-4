@@ -5,8 +5,7 @@ export const FULL_TIME_FOMAT = 'YYYY-MM-DDTHH:mm';
 export const SLASH_TIME_FOMAT = 'DD/MM/YY HH:mm';
 export const MILLISECONDS_IN_DAY = 86400000;
 export const MILLISECONDS_IN_HOUR = 3600000;
-export const POINT_COUNT = 5;
-export const DESTINATION_COUNT = POINT_COUNT;
+export const POINT_COUNT = 10;
 export const OFFER_COUNT = 10;
 
 export const BooleanValues = [
@@ -81,11 +80,13 @@ export const CITIES = [
   'Chelmsford',
 ];
 
+export const DESTINATION_COUNT = CITIES.length;
+
 export const FilterType = {
-  EVERYTHING: 'Everything',
-  FUTURE: 'Future',
-  PRESENT: 'Present',
-  PAST: 'Past'
+  EVERYTHING: 'EVERYTHING',
+  FUTURE: 'FUTURE',
+  PRESENT: 'PRESENT',
+  PAST: 'PAST'
 };
 
 export const SortType = {
@@ -94,4 +95,11 @@ export const SortType = {
   TIME: 'time',
   PRICE: 'price',
   OFFERS: 'offers'
+};
+
+export const EmptyListMessage = {
+  EVERYTHING: '<p class="trip-events__msg">Click New Event to create your first point</p>',
+  FUTURE: '<p class="trip-events__msg">There are no past events now</p>',
+  PRESENT: '<p class="trip-events__msg">There are no present events now</p>',
+  PAST: '<p class="trip-events__msg">There are no future events now</p>'
 };

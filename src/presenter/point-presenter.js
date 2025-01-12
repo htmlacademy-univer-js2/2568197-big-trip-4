@@ -1,7 +1,6 @@
 import {render, replace, remove} from '../framework/render.js';
 import EditPointView from '../view/edit-point-view.js';
 import EventPointView from '../view/event-point-view.js';
-
 import {MODE} from '../mock/const.js';
 
 export default class PointPresenter {
@@ -35,7 +34,6 @@ export default class PointPresenter {
       pointOffers: this.#offersModel.getByType(this.#point.type),
       onEditClick: () => {
         this.#replacePointToForm();
-        document.addEventListener('keydown', this.#escKeyDownHandler);
       },
       onFavoriteClick: () => {
         this.#handleFavoriteClick();
@@ -44,22 +42,17 @@ export default class PointPresenter {
 
     this.#pointEditComponent = new EditPointView({
       point: this.#point,
-      pointDestination: this.#destinationsModel.getById(this.#point.destination),
-      pointOffers: this.#offersModel.getByType(this.#point.type),
+      pointDestination: this.#destinationsModel,
+      pointOffers: this.#offersModel,
       onSubmitClick: () => {
         this.#handleFormSubmit(this.#point);
-        document.addEventListener('keydown', this.#escKeyDownHandler);
       },
       onDeleteClick: () => {
-        // if (document.querySelectorAll('.trip-events__item').length - 1 === 0) {
-        //   this.#renderNoPointComponent();
-        // }
         this.destroy();
-        document.addEventListener('keydown', this.#escKeyDownHandler);
       },
       onRollUpClick: () => {
+        this.#pointEditComponent.resetPoint(this.#point);
         this.#replaceFormToPoint();
-        document.addEventListener('keydown', this.#escKeyDownHandler);
       }
     });
 
@@ -83,6 +76,7 @@ export default class PointPresenter {
   destroy(){
     remove(this.#pointComponent);
     remove(this.#pointEditComponent);
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
   }
 
   resetView() {
@@ -94,8 +88,8 @@ export default class PointPresenter {
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
+      this.#pointEditComponent.resetPoint(this.#point);
       this.#replaceFormToPoint();
-      document.removeEventListener('keydown', this.#escKeyDownHandler);
     }
   };
 
@@ -109,12 +103,14 @@ export default class PointPresenter {
   };
 
   #replacePointToForm() {
+    document.addEventListener('keydown', this.#escKeyDownHandler);
     replace(this.#pointEditComponent, this.#pointComponent);
     this.#handleModeChange();
     this.#mode = MODE.EDITING;
   }
 
   #replaceFormToPoint() {
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
     replace(this.#pointComponent, this.#pointEditComponent);
     this.#mode = MODE.DEFAULT;
   }
