@@ -5,8 +5,6 @@ export const FULL_TIME_FOMAT = 'YYYY-MM-DDTHH:mm';
 export const SLASH_TIME_FOMAT = 'DD/MM/YY HH:mm';
 export const MILLISECONDS_IN_DAY = 86400000;
 export const MILLISECONDS_IN_HOUR = 3600000;
-export const POINT_COUNT = 10;
-export const OFFER_COUNT = 10;
 
 export const BooleanValues = [
   true,
@@ -29,58 +27,17 @@ export const POINT_EMPTY = {
   type: 'Flight',
 };
 
-export const EMPTY_WARNINGS = {
-  EVERYTHING: 'Click New Event to create your first',
-  FUTURE: 'There are no past events now',
-  PRESENT: 'There are no present events now',
-  PAST: 'There are no future events now'
-};
-
-export const DESCRIPTION = [
-  'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.',
-  'Aenean commodo ligula eget dolor. Aenean mass',
-  'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-  'Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-  'Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.',
-  'In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. '
-];
-
-export const OFFERS = [
-  'Close But No Cigar',
-  'On the Same Page',
-  'Jaws of Death',
-  'Every Cloud Has a Silver',
-  'Jig Is Up',
-  'In a Pickle',
-  'What Goes Up Must Come',
-  'Break The Ice',
-  'In the Red',
-];
-
 export const ROUTE_TYPE = [
-  'Taxi',
-  'Bus',
-  'Train',
-  'Ship',
-  'Drive',
-  'Flight',
-  'Check-in',
-  'Sightseeing',
-  'Restaurant'
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'drive',
+  'flight',
+  'check-in',
+  'sightseeing',
+  'restaurant'
 ];
-
-export const CITIES = [
-  'Salisbury',
-  'Kingston',
-  'Ripon',
-  'Liverpool',
-  'Carlisle',
-  'Oxford',
-  'Manchester',
-  'Chelmsford',
-];
-
-export const DESTINATION_COUNT = CITIES.length;
 
 export const FilterType = {
   EVERYTHING: 'EVERYTHING',
@@ -114,9 +71,15 @@ export const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
+  INIT: 'INIT'
 };
 
 export const EditType = {
   CREATING: 'CREATING',
   EDITING: 'EDITING'
+};
+
+export const TimeLimit = {
+  LOWER_LIMIT: 350,
+  UPPER_LIMIT: 1000
 };
